@@ -1,0 +1,74 @@
+package com.gaon.board.controller;
+
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.gaon.board.service.BoardService;
+import com.gaon.board.vo.BoardVO;
+
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+
+//@RestController
+public class BoardController {
+	@Autowired
+    private BoardService boardService;
+
+	@ApiOperation(value = "기본예제", notes = "기본예제입니다.")
+	@GetMapping("/hello")
+	public String hello(@ApiParam(value="사람이름", required = false) String name) {
+		return "Hello : " + name; 
+	}
+	
+	@GetMapping("/board")
+	public List<BoardVO> boardList() throws Exception{
+		List<BoardVO> boardList = boardService.selectBoardList();
+		
+		return boardList;
+	}
+	
+	@GetMapping("/board2")
+	public HashMap<String, Object> boardList2(){
+		HashMap<String, Object> map = new HashMap<>();
+		try {
+			List<BoardVO> boardList = boardService.selectBoardList();
+			map.put("list", boardList);
+			map.put("code", "200");
+		
+		} catch (SQLException e) {
+			map.put("code","");
+			map.put("message", "오류가 발생했습니다.");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return map;
+	}
+	
+	@GetMapping("/board3")
+	public ResponseEntity<List<BoardVO>> list3() {
+		ResponseEntity<List<BoardVO>> entity = null;
+		try {
+            entity = new ResponseEntity<>(
+            		boardService.selectBoardList(), HttpStatus.OK);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        
+        return entity;
+	}
+
+}

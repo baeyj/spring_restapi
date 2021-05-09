@@ -1,0 +1,31 @@
+package com.gaon.event.mapper;
+
+
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.gaon.detection.vo.DetectionVO;
+import com.gaon.event.vo.EventVO;
+
+
+
+
+@Mapper
+public interface EventMapper {
+	
+	List<EventVO> selectEventList(Map<String, Object> mapParams); 
+	
+	
+	/*
+	int insertDetection(DetectionVO detectionVO); 
+	
+	int updateDetection(Map<String, Object> mapParams);
+	
+	int deleteDetection(String chId, String detectId);
+	
+	DetectionVO selectDetection(String chId, String detectId);
+	*/
+}

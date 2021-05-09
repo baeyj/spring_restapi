@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaon.event.mapper.EventMapper">
+
+	<select id="selectEventList" resultType="java.util.HashMap">
+			SELECT TO_CHAR(START_TIME, 'YYYY-MM-DD HH:MI:SS') as START_TIME
+				, TO_CHAR(END_TIME, 'YYYY-MM-DD HH:MI:SS') as END_TIME
+				, CH_ID
+				, DETECT_ID
+				, OBJECT_ID
+				, DETECT_NAME
+				, OBJ_NAME
+				, FILE_LOC
+				, FILE_NAME
+			FROM EVENT_LOG
+			<![CDATA[
+			WHERE START_TIME >= to_timestamp(#{start} , 'YYYYMMDDHHMISS') AND END_TIME <= to_timestamp(#{end}, 'YYYYMMDDHHMISS')
+			]]>
+			<if test="channels != null">
+				AND CH_ID IN 
+				<foreach collection="channels" item="channels" index="index" open="(" separator="," close=")">
+					#{channels}
+				</foreach>
+			</if>
+			
+			<if test="detections != null">
+				AND DETECT_ID IN 
+				<foreach collection="detections" item="detections" index="index" open="(" separator="," close=")">
+					#{detections}
+				</foreach>
+			</if>
+			
+			<if test="objects != null">
+				AND OBJECT_ID IN 
+				<foreach collection="objects" item="objects" index="index" open="(" separator="," close=")">
+					#{objects}
+				</foreach>
+			</if>
+	</select>
+	<!--  
+	
+			
+			
+			<if test="channels != null">
+				AND CH_ID IN 
+				(
+					#{channels}
+				)
+			</if>
+			
+			<if test="detections != null">
+				AND DETECT_ID IN 
+				(
+					#{detections}
+				)
+			</if>
+			
+			<if test="objects != null">
+				AND OBJECT_ID IN 
+				(
+					#{objects}
+				)
+			</if>
+	-->
+	<!--  
+	<insert id="insertChannel" parameterType="ChannelVO">
+		INSERT INTO CHANNEL_INFO (
+			CH_ID
+			, CCTV_MODEL
+			, CCTV_LOC
+			, CCTV_IP
+			, CCTV_PORT
+			, CCTV_RTSP
+			, SERVER_IP
+			, SERVER_PORT
+			, SERVER_RTSP
+			, REGIST_DATE
+			, REGIST_USER
+			, MODIFY_DATE
+			, MODIFY_USER
+			, IS_USED
+		) VALUES (
+			#{chId}
+			, #{cctvModel}
+			, #{cctvLoc}
+			, #{cctvIp}
+			, #{cctvPort}
+			, #{cctvRtsp}
+			, #{serverIp}
+			, #{serverPort}
+			, #{serverRtsp}
+			, now()
+			, #{modifyUser}
+			, now()
+			, #{modifyUser}
+			, #{isUsed}
+		)
+	</insert>
+	
+	<update id="updateChannel" parameterType="ChannelVO">
+		UPDATE CHANNEL_INFO
+		SET CCTV_MODEL = #{cctvModel}
+			, CCTV_LOC = #{cctvLoc}
+			, CCTV_IP = #{cctvIp}
+			, CCTV_PORT = #{cctvPort}
+			, CCTV_RTSP = #{cctvRtsp}
+			, SERVER_IP = #{serverIp}
+			, SERVER_PORT = #{serverPort}
+			, SERVER_RTSP = #{serverRtsp}
+			, MODIFY_DATE = now()
+			, MODIFY_USER = #{modifyUser}
+			, IS_USED = #{isUsed}
+		WHERE
+			CH_ID = #{chId}
+	</update>
+	
+	<update id="deleteChannel" parameterType="String">
+		DELETE FROM CHANNEL_INFO
+		WHERE
+			CH_ID = #{chId}
+	</update>
+
+	<select id="selectChannel" resultType="ChannelVO">
+		SELECT CH_ID
+			, CCTV_MODEL
+			, CCTV_LOC
+			, CCTV_IP
+			, CCTV_PORT
+			, CCTV_RTSP
+			, SERVER_IP
+			, SERVER_PORT
+			, SERVER_RTSP
+			, TO_CHAR(REGIST_DATE, 'YYYY-MM-DD HH:MI:SS') as REGIST_DATE
+			, REGIST_USER
+			, TO_CHAR(MODIFY_DATE, 'YYYY-MM-DD HH:MI:SS') as MODIFY_DATE
+			, MODIFY_USER
+			, IS_USED
+		FROM CHANNEL_INFO
+		WHERE
+			CH_ID = #{chId}
+	</select>
+
+	<select id="selectChannelStatusList" resultType="ChannelStatusVO">
+		SELECT CH_ID
+			, TO_CHAR(SVR_TIME, 'YYYY-MM-DD HH:MI:SS') as SVR_TIME
+			, DETECT_SET
+			, OBJ_SET
+			, CCTV_STATUS
+		FROM CHANNEL_STATUS
+	</select>
+	
+	<select id="selectChannelStatus" resultType="ChannelStatusVO">
+		SELECT CH_ID
+			, TO_CHAR(SVR_TIME, 'YYYY-MM-DD HH:MI:SS') as SVR_TIME
+			, DETECT_SET
+			, OBJ_SET
+			, CCTV_STATUS
+		FROM CHANNEL_STATUS
+		WHERE
+			CH_ID = #{chId}
+	</select>
+	-->
+</mapper>

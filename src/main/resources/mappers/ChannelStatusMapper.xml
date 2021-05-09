@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaon.channelstatus.mapper.ChannelStatusMapper">
+
+	<select id="selectChannelStatusList" resultType="ChannelStatusVO">
+		SELECT CH_ID
+			, TO_CHAR(SVR_TIME, 'YYYY-MM-DD HH:MI:SS') as SVR_TIME
+			, DETECT_SET
+			, OBJ_SET
+			, CCTV_STATUS
+		FROM CHANNEL_STATUS
+	</select>
+	
+	<select id="selectChannelStatus" resultType="ChannelStatusVO">
+		SELECT CH_ID
+			, TO_CHAR(SVR_TIME, 'YYYY-MM-DD HH:MI:SS') as SVR_TIME
+			, DETECT_SET
+			, OBJ_SET
+			, CCTV_STATUS
+		FROM CHANNEL_STATUS
+		WHERE
+			CH_ID = #{chId}
+	</select>
+</mapper>

@@ -1,0 +1,22 @@
+package com.gaon.schedule.service;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.gaon.channel.vo.ChannelVO;
+import com.gaon.event.vo.EventVO;
+import com.gaon.schedule.vo.ScheduleVO;
+
+
+public interface ScheduleService {
+	public List<ScheduleVO> selectScheduleList() throws SQLException;
+	
+	public ScheduleVO selectSchedule(String chId) throws SQLException;
+	
+	//public int updateSchedule(ScheduleVO scheduleVO) throws SQLException;
+	
+	public int updateSchedule(Map<String, Object> mapParams) throws SQLException;
+}

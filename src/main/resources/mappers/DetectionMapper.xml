@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaon.detection.mapper.DetectionMapper">
+
+	<select id="selectDetectionList" resultType="DetectionVO">
+			SELECT DETECT_ID, DETECT_NAME, CH_ID, DETECT_POS, IS_USED
+			FROM DETECTION_SETTING
+			WHERE
+				CH_ID = #{chId}
+	</select>
+
+	<update id="updateDetection" parameterType="java.util.HashMap">
+		<foreach collection="detectionList" item="item" separator=";">
+			UPDATE DETECTION_SETTING
+			SET DETECT_POS = #{item.detectPos}
+				,IS_USED = #{item.isUsed}
+			WHERE
+				CH_ID = #{chId}
+			AND DETECT_ID = #{item.detectId}
+		</foreach>
+	</update>
+	
+	<select id="selectDetectionInfoList" resultType="DetectionVO">
+			SELECT DETECT_ID, DETECT_NAME
+			FROM DETECTION_INFO
+	</select>
+</mapper>

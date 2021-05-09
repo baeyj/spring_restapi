@@ -1,0 +1,16 @@
+package com.gaon.board.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.gaon.board.vo.BoardVO;
+
+
+
+@Mapper
+public interface BoardMapper {
+	
+	public List<BoardVO> selectBoardList() throws Exception; 
+
+}

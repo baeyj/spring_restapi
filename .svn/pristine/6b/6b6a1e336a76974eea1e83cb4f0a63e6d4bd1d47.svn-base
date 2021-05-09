@@ -1,0 +1,23 @@
+## WebApplication Type Setting
+spring.main.web-application-type=servlet
+
+## Banner Setting
+spring.main.banner-mode=off
+
+## Server Setting
+server.port=8080
+
+#db
+spring.datasource.driverClassName=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://192.168.250.79:5432/analysis
+spring.datasource.username=gaonpf
+spring.datasource.password=gaonpf
+
+# mybatis 매핑 type을 짧게 쓰기 위한 설정 
+# mapper.xml에서 resultType을 지정할 때 com.god.bo.test.vo.TestVo 대신 TestVo로 간략히 할 수 있다. 
+mybatis.type-aliases-package=com.gaon.*.vo
+# mapper.xml 위치 지정 
+# **은 하위 폴더 레벨에 상관없이 모든 경로를 뜻하며, *는 아무 이름이나 와도 된다는것을 뜻합니다. 
+mybatis.mapper-locations=classpath:/mappers/*.xml
+
+mybatis.configuration.map-underscore-to-camel-case=true

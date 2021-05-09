@@ -1,0 +1,33 @@
+package com.gaon.object.mapper;
+
+
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Mapper;
+
+
+import com.gaon.object.vo.ObjectVO;
+
+
+
+
+@Mapper
+public interface ObjectMapper {
+	
+	List<ObjectVO> selectObjectList(String chId); 
+	
+	int updateObject(Map<String, Object> mapParams);
+	
+	List<ObjectVO> selectObjectInfoList(); 
+	/*
+	int insertObject(ObjectVO ObjectVO); 
+	
+	
+	
+	int deleteObject(String chId, String objId);
+	
+	ObjectVO selectObject(String chId, String objId);
+	*/
+}

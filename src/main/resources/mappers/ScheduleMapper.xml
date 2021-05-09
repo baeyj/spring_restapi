@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaon.schedule.mapper.ScheduleMapper">
+
+	<select id="selectSchedule" resultType="ScheduleVO">
+			SELECT CH_ID, SUN, MON, TUE, WED, THU, FRI, SAT
+			FROM CHANNEL_SCHEDULE
+			WHERE
+				CH_ID = #{chId}
+	</select>
+	
+	<select id="selectScheduleList" resultType="ScheduleVO">
+			SELECT CH_ID, SUN, MON, TUE, WED, THU, FRI, SAT
+			FROM CHANNEL_SCHEDULE
+	</select>
+	
+	<update id="updateSchedule" parameterType="java.util.HashMap">
+		UPDATE CHANNEL_SCHEDULE
+
+			SET SUN = #{scheduleVO.sun}
+				, MON = #{scheduleVO.mon}
+				, TUE = #{scheduleVO.tue}
+				, WED = #{scheduleVO.wed}
+				, THU = #{scheduleVO.thu}
+				, FRI = #{scheduleVO.fri}
+				, SAT = #{scheduleVO.sat}
+			WHERE
+				CH_ID = #{chId}
+		
+	</update>
+    <!-- 
+    <update id="updateSchedule" parameterType="ScheduleVO">
+		UPDATE CHANNEL_SCHEDULE
+		SET SUN = #{sun}
+			, MON = #{mon}
+			, TUE = #{tue}
+			, WED = #{wed}
+			, THU = #{thu}
+			, FRI = #{fri}
+			, SAT = #{sat}
+		WHERE
+			CH_ID = #{chId}
+	</update>
+     -->
+</mapper>
